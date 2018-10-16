@@ -31,21 +31,3 @@ export const Value = styled("div")({
 export const Item = styled("div")({});
 
 export const Header = styled("h1")({});
-
-export default class extends Component<Props> {
-    public render() {
-        const { title, loading, children } = this.props;
-        return (
-            <Detail>
-                {loading ? (
-                    <Spinner />
-                ) : (
-                    <Fragment>
-                        <h2>{title}</h2>
-                        <div>{children}</div>
-                    </Fragment>
-                )}
-            </Detail>
-        );
-    }
-}
