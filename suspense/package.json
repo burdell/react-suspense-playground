@@ -1,0 +1,33 @@
+{
+    "name": "suspense",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "parcel index.html"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "dependencies": {
+        "@reach/router": "^1.2.1",
+        "axios": "^0.18.0",
+        "emotion": "^9.2.12",
+        "glamor": "^2.20.40",
+        "react": "16.6.0-alpha.8af6728",
+        "react-dom": "^16.5.2",
+        "react-emotion": "^9.2.12",
+        "react-loader-spinner": "^2.0.6",
+        "simple-cache-provider": "^0.10.0"
+    },
+    "devDependencies": {
+        "@types/jest": "^23.3.3",
+        "@types/reach__router": "^1.2.0",
+        "@types/react": "^16.4.18",
+        "@types/react-dom": "^16.0.9",
+        "babel-polyfill": "^6.26.0",
+        "parcel-bundler": "^1.10.1",
+        "typescript": "^3.1.1"
+    }
+}
