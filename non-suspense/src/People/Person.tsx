@@ -1,32 +1,70 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { RouteComponentProps } from "@reach/router";
 
 import { getPerson } from "../api";
 import { Person } from "../types";
-import Detail from "../Detail";
+import { Label, Value, Item, Detail, Header } from "../Detail";
+import Spinner from "../Spinner";
+import { PlanetDetail } from "../Planets/Planet";
+import { getId } from "../utils";
 
 interface State {
     person: Person | null;
+    loading: boolean;
 }
 
-export default class extends Component<
-    RouteComponentProps<{ id: string }>,
-    State
-> {
+interface Props {
+    id: string;
+    restricted?: boolean;
+}
+
+export class PersonDetail extends Component<Props, State> {
     public readonly state: State = {
-        person: null
+        person: null,
+        loading: false
     };
 
     public async componentDidMount() {
-        if (this.props.id) {
-            const person = await getPerson(this.props.id);
-            this.setState({ person });
-        }
+        this.setState({ loading: true });
+        const person = await getPerson(this.props.id);
+        this.setState({ person, loading: false });
     }
 
     public render() {
-        return this.state.person ? (
-            <Detail title={this.state.person.name} />
-        ) : null;
+        const { loading, person } = this.state;
+        const { restricted } = this.props;
+        return (
+            <Detail restricted={restricted}>
+                {loading && <Spinner />}
+                {person && (
+                    <Fragment>
+                        <Header>{person.name}</Header>
+                        <Item>
+                            <Label>Birth Year</Label>
+                            <Value>{person.birth_year}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Dat Mass</Label>
+                            <Value>{person.mass}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Gender</Label>
+                            <Value>{person.gender}</Value>
+                        </Item>
+                        {!restricted && (
+                            <Item>
+                                <Label>Homeworld</Label>
+                                <PlanetDetail
+                                    id={getId({ url: person.homeworld })}
+                                />
+                            </Item>
+                        )}
+                    </Fragment>
+                )}
+            </Detail>
+        );
     }
 }
+
+export default ({ id }: RouteComponentProps<{ id: string }>) =>
+    id ? <PersonDetail id={id} /> : null;

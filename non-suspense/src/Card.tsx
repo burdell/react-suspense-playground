@@ -17,7 +17,7 @@ const Card = styled("div")({
     borderRadius: "2em"
 });
 
-const Header = styled("div")({
+export const Header = styled("div")({
     borderBottom: "1px solid #E5DDCB",
     fontSize: "2em",
     marginBottom: ".4em"

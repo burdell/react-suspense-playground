@@ -1,32 +1,95 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { RouteComponentProps } from "@reach/router";
 
 import { getStarShip } from "../api";
 import { Starship } from "../types";
-import Detail from "../Detail";
+import { Label, Value, Item, Detail, Header } from "../Detail";
+import { PersonDetail } from "../People/Person";
+import { getId } from "../utils";
+import Spinner from "../Spinner";
 
 interface State {
     starship: Starship | null;
+    loading: boolean;
 }
 
-export default class extends Component<
-    RouteComponentProps<{ id: string }>,
-    State
-> {
+interface Props {
+    id: string;
+    restricted?: boolean;
+}
+
+export class StarshipDetail extends Component<Props, State> {
     public readonly state: State = {
-        starship: null
+        starship: null,
+        loading: false
     };
 
     public async componentDidMount() {
         if (this.props.id) {
+            this.setState({ loading: true });
             const starship = await getStarShip(this.props.id);
-            this.setState({ starship });
+            this.setState({ starship, loading: false });
         }
     }
 
     public render() {
-        return this.state.starship ? (
-            <Detail title={this.state.starship.name} />
-        ) : null;
+        const { starship, loading } = this.state;
+        const { restricted } = this.props;
+
+        return (
+            <Detail restricted={restricted}>
+                {loading && <Spinner />}
+                {starship && (
+                    <Fragment>
+                        <Header>{starship.name}</Header>
+                        <Item>
+                            <Label>Cargo Capacity</Label>
+                            <Value>{starship.cargo_capacity}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Hyperdrive Rating</Label>
+                            <Value>{starship.hyperdrive_rating}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Starship Class</Label>
+                            <Value>{starship.starship_class}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Model</Label>
+                            <Value>{starship.model}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Manufacturer</Label>
+                            <Value>{starship.manufacturer}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Consumables</Label>
+                            <Value>{starship.consumables}</Value>
+                        </Item>
+                        <Item>
+                            <Label>Crew</Label>
+                            <Value>{starship.crew}</Value>
+                        </Item>
+                        {starship.pilots.length > 0 && (
+                            <Item>
+                                <Label>Pilots</Label>
+                                <Value>
+                                    {starship.pilots.map(pilot => (
+                                        <PersonDetail
+                                            restricted={true}
+                                            key={pilot}
+                                            id={getId({ url: pilot })}
+                                        />
+                                    ))}
+                                </Value>
+                            </Item>
+                        )}
+                    </Fragment>
+                )}
+            </Detail>
+        );
     }
 }
+
+export default ({ id }: RouteComponentProps<{ id: string }>) =>
+    id ? <StarshipDetail id={id} /> : null;

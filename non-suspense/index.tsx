@@ -7,6 +7,11 @@ css.global("*", {
     fontFamily: "'Hammersmith One', sans-serif"
 });
 
+css.global("a", {
+    color: "inherit",
+    textDecoration: "inherit"
+});
+
 css.global("body", {
     backgroundColor: "#E7EDEA"
 });
