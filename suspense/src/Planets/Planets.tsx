@@ -1,44 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
+import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getPlanets } from "../api";
 import { Planet } from "../types";
 import Card, { LinkStyles, CardItem } from "../Card";
 import { Link } from "@reach/router";
 import { getId } from "../utils";
-import Spinner from "../Spinner";
+import { cache } from "../cache";
 
-interface State {
-    loading: boolean;
-    planets: Planet[];
-}
+const { createResource } = simpleCacheProvider;
+const planetFetcher = createResource(async () => await getPlanets());
 
-export default class extends Component<{}, State> {
-    public readonly state: State = {
-        loading: false,
-        planets: []
-    };
+export default () => {
+    const planets = planetFetcher.read(cache);
 
-    public async componentDidMount() {
-        this.setState({ loading: true });
-
-        const planets = await getPlanets();
-        this.setState({ loading: false, planets });
-    }
-
-    public render() {
-        return (
-            <Card title="Planets">
-                {this.state.loading && <Spinner />}
-                {this.state.planets.map(planet => (
-                    <Link
-                        style={LinkStyles}
-                        to={`planet/${getId(planet)}`}
-                        key={planet.name}
-                    >
-                        <CardItem>{planet.name}</CardItem>
-                    </Link>
-                ))}
-            </Card>
-        );
-    }
-}
+    return (
+        <Card title="Planets">
+            {planets.map((planet: Planet) => (
+                <Link
+                    style={LinkStyles}
+                    to={`planet/${getId(planet)}`}
+                    key={planet.name}
+                >
+                    <CardItem>{planet.name}</CardItem>
+                </Link>
+            ))}
+        </Card>
+    );
+};

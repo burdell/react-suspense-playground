@@ -1,44 +1,29 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "@reach/router";
+import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getPeople } from "../api";
-import { Person } from "../types";
 import Card, { LinkStyles, CardItem } from "../Card";
 import { getId } from "../utils";
-import Spinner from "../Spinner";
+import { cache } from "../cache";
 
-interface State {
-    loading: boolean;
-    people: Person[];
-}
+const { createResource } = simpleCacheProvider;
+const peopleFetcher = createResource(async () => await getPeople());
 
-export default class extends Component<{}, State> {
-    public readonly state: State = {
-        loading: false,
-        people: []
-    };
+export default () => {
+    const people = peopleFetcher.read(cache);
 
-    public async componentDidMount() {
-        this.setState({ loading: true });
-
-        const people = await getPeople();
-        this.setState({ loading: false, people });
-    }
-
-    public render() {
-        return (
-            <Card title="People">
-                {this.state.loading && <Spinner />}
-                {this.state.people.map(person => (
-                    <Link
-                        style={LinkStyles}
-                        to={`person/${getId(person)}`}
-                        key={person.name}
-                    >
-                        <CardItem>{person.name}</CardItem>
-                    </Link>
-                ))}
-            </Card>
-        );
-    }
-}
+    return (
+        <Card title="People">
+            {people.map((person: any) => (
+                <Link
+                    style={LinkStyles}
+                    to={`person/${getId(person)}`}
+                    key={person.name}
+                >
+                    <CardItem>{person.name}</CardItem>
+                </Link>
+            ))}
+        </Card>
+    );
+};
