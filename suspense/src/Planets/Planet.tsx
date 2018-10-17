@@ -1,76 +1,69 @@
-import React, { Component, Fragment } from "react";
+import React from "react";
 import { RouteComponentProps } from "@reach/router";
+import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getPlanet } from "../api";
 import { Planet } from "../types";
 import { Label, Value, Item, Detail, Header } from "../Detail";
 import Spinner from "../Spinner";
-import { PersonDetail } from "../People/Person";
+import Person from "../People/Person";
 import { getId } from "../utils";
+import { cache } from "../cache";
 
-interface State {
-    planet: Planet | null;
-    loading: boolean;
-}
+const Suspense = (React as any).unstable_Suspense;
+
+const { createResource } = simpleCacheProvider;
+const PlanetResource = createResource(
+    async (id: string) => await getPlanet(id)
+);
 
 interface Props {
     id: string;
     restricted?: boolean;
 }
 
-export class PlanetDetail extends Component<Props, State> {
-    public readonly state: State = {
-        planet: null,
-        loading: false
-    };
+const PlanetDetail = ({ restricted, id }: Props) => {
+    const planet: Planet = PlanetResource.read(cache, id);
 
-    public async componentDidMount() {
-        this.setState({ loading: true });
-        const planet = await getPlanet(this.props.id);
-        this.setState({ planet, loading: false });
-    }
-
-    public render() {
-        const { loading, planet } = this.state;
-        const { restricted } = this.props;
-
-        return (
-            <Detail restricted={restricted}>
-                {loading && <Spinner />}
-                {planet && (
-                    <Fragment>
-                        <Header>{planet.name}</Header>
-                        <Item>
-                            <Label>Climate</Label>
-                            <Value>{planet.climate}</Value>
-                        </Item>
-                        <Item>
-                            <Label>Orbital Period</Label>
-                            <Value>{planet.orbital_period}</Value>
-                        </Item>
-                        <Item>
-                            <Label>Population</Label>
-                            <Value>{planet.population}</Value>
-                        </Item>
-                        {!restricted &&
-                            planet.residents.length > 0 && (
-                                <Item>
-                                    <Label>Residents</Label>
-                                    {planet.residents.map(person => (
-                                        <PersonDetail
-                                            key={person}
-                                            id={getId({ url: person })}
-                                            restricted={true}
-                                        />
-                                    ))}
-                                </Item>
-                            )}
-                    </Fragment>
+    return (
+        <Detail restricted={restricted}>
+            <Header>{planet.name}</Header>
+            <Item>
+                <Label>Climate</Label>
+                <Value>{planet.climate}</Value>
+            </Item>
+            <Item>
+                <Label>Orbital Period</Label>
+                <Value>{planet.orbital_period}</Value>
+            </Item>
+            <Item>
+                <Label>Population</Label>
+                <Value>{planet.population}</Value>
+            </Item>
+            {!restricted &&
+                planet.residents.length > 0 && (
+                    <Item>
+                        <Label>Residents</Label>
+                        {planet.residents.map(person => (
+                            <Person
+                                key={person}
+                                id={getId({ url: person })}
+                                restricted={true}
+                            />
+                        ))}
+                    </Item>
                 )}
-            </Detail>
-        );
-    }
-}
+        </Detail>
+    );
+};
 
-export default ({ id }: RouteComponentProps<{ id: string }>) =>
-    id ? <PlanetDetail id={id} /> : null;
+export const PlanetRoute = ({ id }: RouteComponentProps<{ id: string }>) =>
+    id ? <PlanetSuspense id={id} /> : null;
+
+const PlanetSuspense = (props: Props) => (
+    <Suspense delayMs="300" placeholder={<Spinner />}>
+        <PlanetDetail {...props} />
+    </Suspense>
+);
+
+export default PlanetSuspense;

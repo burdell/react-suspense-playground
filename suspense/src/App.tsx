@@ -3,9 +3,9 @@ import { Router } from "@reach/router";
 import styled from "react-emotion";
 
 import Home from "./Home";
-import Person from "./People/Person";
-import Planet from "./Planets/Planet";
-import Starship from "./Starships/Starship";
+import { PersonRoute } from "./People/Person";
+import { PlanetRoute } from "./Planets/Planet";
+import { StarshipRoute } from "./Starships/Starship";
 
 const Title = styled("h1")({
     fontFamily: "Londrina Shadow",
@@ -19,9 +19,9 @@ export default () => (
         <Title>Star Warz</Title>
         <Router>
             <Home path="/" />
-            <Person path="/person/:id" />
-            <Planet path="/planet/:id" />
-            <Starship path="/ship/:id" />
+            <PersonRoute path="/person/:id" />
+            <PlanetRoute path="/planet/:id" />
+            <StarshipRoute path="/ship/:id" />
         </Router>
     </div>
 );

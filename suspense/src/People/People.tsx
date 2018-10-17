@@ -6,11 +6,14 @@ import { getPeople } from "../api";
 import Card, { LinkStyles, CardItem } from "../Card";
 import { getId } from "../utils";
 import { cache } from "../cache";
+import Spinner from "../Spinner";
+
+const Suspense = (React as any).unstable_Suspense;
 
 const { createResource } = simpleCacheProvider;
 const peopleFetcher = createResource(async () => await getPeople());
 
-export default () => {
+const People = () => {
     const people = peopleFetcher.read(cache);
 
     return (
@@ -27,3 +30,9 @@ export default () => {
         </Card>
     );
 };
+
+export default () => (
+    <Suspense delayMs={30000} fallback={<Spinner />}>
+        <People />
+    </Suspense>
+);

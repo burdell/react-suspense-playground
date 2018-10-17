@@ -19,12 +19,8 @@ export default class extends Component<RouteComponentProps> {
     public render() {
         return (
             <Main>
-                <Suspense delayMs={30000} fallback={<Spinner />}>
-                    <Ships />
-                </Suspense>
-                <Suspense delayMs={30000} fallback={<Spinner />}>
-                    <People />
-                </Suspense>
+                <Ships />
+                <People />
                 <Suspense delayMs={30000} fallback={<Spinner />}>
                     <Planets />
                 </Suspense>
