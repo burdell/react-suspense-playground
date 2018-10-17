@@ -1,12 +1,12 @@
 import React, { Component, Fragment } from "react";
 import { RouteComponentProps } from "@reach/router";
 
-import { getStarShip } from "../api";
+import { getStarShip } from "../data/api";
 import { Starship } from "../types";
-import { Label, Value, Item, Detail, Header } from "../Detail";
+import { Label, Value, Item, Detail, Header } from "../ui/Detail";
 import { PersonDetail } from "../People/Person";
 import { getId } from "../utils";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 interface State {
     starship: Starship | null;

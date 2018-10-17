@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import { getStarShips } from "../api";
+import { getStarShips } from "../data/api";
 import { Starship } from "../types";
-import Card, { LinkStyles, CardItem } from "../Card";
+import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { Link } from "@reach/router";
 import { getId } from "../utils";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 interface State {
     loading: boolean;

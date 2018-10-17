@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 
-import { getPeople } from "../api";
+import { getPeople } from "../data/api";
 import { Person } from "../types";
-import Card, { LinkStyles, CardItem } from "../Card";
+import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { getId } from "../utils";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 interface State {
     loading: boolean;

@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from "react";
 import { RouteComponentProps } from "@reach/router";
 
-import { getPerson } from "../api";
+import { getPerson } from "../data/api";
 import { Person } from "../types";
-import { Label, Value, Item, Detail, Header } from "../Detail";
-import Spinner from "../Spinner";
+import { Label, Value, Item, Detail, Header } from "../ui/Detail";
+import Spinner from "../ui/Spinner";
 import { PlanetDetail } from "../Planets/Planet";
 import { getId } from "../utils";
 
