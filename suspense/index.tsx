@@ -19,5 +19,5 @@ css.global("body", {
 import App from "./src/App";
 
 const root = document.getElementById("root");
-// ReactDOM.render(<App />, root);
-(ReactDOM as any).unstable_createRoot(root).render(<App />);
+ReactDOM.render(<App />, root);
+// (ReactDOM as any).unstable_createRoot(root).render(<App />);
