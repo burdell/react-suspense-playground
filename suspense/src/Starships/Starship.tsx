@@ -1,13 +1,12 @@
 import React from "react";
-import { RouteComponentProps } from "@reach/router";
 import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getStarShip } from "../api";
 import { Starship } from "../types";
-import { Label, Value, Item, Detail, Header } from "../Detail";
+import { Label, Value, Item, Detail, Header } from "../ui/Detail";
 import Person from "../People/Person";
 import { getId } from "../utils";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 import { cache } from "../cache";
 
 interface Props {
@@ -74,13 +73,8 @@ const StarshipDetail = ({ id, restricted }: Props) => {
     );
 };
 
-export const StarshipRoute = ({ id }: RouteComponentProps<{ id: string }>) =>
-    id ? <StarshipSuspense id={id} /> : null;
-
-const StarshipSuspense = (props: Props) => (
+export default (props: Props) => (
     <Suspense delayMs="300" placeholder={<Spinner />}>
         <StarshipDetail {...props} />
     </Suspense>
 );
-
-export default StarshipSuspense;

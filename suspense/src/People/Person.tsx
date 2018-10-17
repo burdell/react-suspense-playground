@@ -1,14 +1,13 @@
 import React, { Fragment } from "react";
-import { RouteComponentProps } from "@reach/router";
 import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getPerson } from "../api";
 import { Person } from "../types";
-import { Label, Value, Item, Detail, Header } from "../Detail";
+import { Label, Value, Item, Detail, Header } from "../ui/Detail";
 import Planet from "../Planets/Planet";
 import { getId } from "../utils";
 import { cache } from "../cache";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
 
@@ -52,17 +51,8 @@ const PersonDetail = ({ restricted, id }: Props) => {
     );
 };
 
-export const PersonRoute = ({ id }: RouteComponentProps<{ id: string }>) =>
-    id ? (
-        <PersonSuspense id={id}>
-            <PersonDetail id={id} />
-        </PersonSuspense>
-    ) : null;
-
-const PersonSuspense = (props: Props) => (
+export default (props: Props) => (
     <Suspense delayMs="300" placeholder={<Spinner />}>
         <PersonDetail {...props} />
     </Suspense>
 );
-
-export default PersonSuspense;

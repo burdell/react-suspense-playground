@@ -3,11 +3,11 @@ import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getStarShips } from "../api";
 import { Starship as StarshipType } from "../types";
-import Card, { LinkStyles, CardItem } from "../Card";
+import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { Link } from "@reach/router";
 import { getId } from "../utils";
 import { cache } from "../cache";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
 
@@ -33,7 +33,7 @@ const Starships = () => {
 };
 
 export default () => (
-    <Suspense delayMs={30000} fallback={<Spinner />}>
+    <Suspense delayMs="300" fallback={<Spinner />}>
         <Starships />
     </Suspense>
 );

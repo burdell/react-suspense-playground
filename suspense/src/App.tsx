@@ -3,9 +3,9 @@ import { Router } from "@reach/router";
 import styled from "react-emotion";
 
 import Home from "./Home";
-import { PersonRoute } from "./People/Person";
-import { PlanetRoute } from "./Planets/Planet";
-import { StarshipRoute } from "./Starships/Starship";
+import { PersonRoute } from "./People/routes";
+import { PlanetRoute } from "./Planets/routes";
+import { StarshipRoute } from "./Starships/routes";
 
 const Title = styled("h1")({
     fontFamily: "Londrina Shadow",

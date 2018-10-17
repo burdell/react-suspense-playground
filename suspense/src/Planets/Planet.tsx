@@ -1,11 +1,10 @@
 import React from "react";
-import { RouteComponentProps } from "@reach/router";
 import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getPlanet } from "../api";
 import { Planet } from "../types";
-import { Label, Value, Item, Detail, Header } from "../Detail";
-import Spinner from "../Spinner";
+import { Label, Value, Item, Detail, Header } from "../ui/Detail";
+import Spinner from "../ui/Spinner";
 import Person from "../People/Person";
 import { getId } from "../utils";
 import { cache } from "../cache";
@@ -57,13 +56,8 @@ const PlanetDetail = ({ restricted, id }: Props) => {
     );
 };
 
-export const PlanetRoute = ({ id }: RouteComponentProps<{ id: string }>) =>
-    id ? <PlanetSuspense id={id} /> : null;
-
-const PlanetSuspense = (props: Props) => (
+export default (props: Props) => (
     <Suspense delayMs="300" placeholder={<Spinner />}>
         <PlanetDetail {...props} />
     </Suspense>
 );
-
-export default PlanetSuspense;

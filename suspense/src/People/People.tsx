@@ -3,10 +3,10 @@ import { Link } from "@reach/router";
 import * as simpleCacheProvider from "simple-cache-provider";
 
 import { getPeople } from "../api";
-import Card, { LinkStyles, CardItem } from "../Card";
+import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { getId } from "../utils";
 import { cache } from "../cache";
-import Spinner from "../Spinner";
+import Spinner from "../ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
 
