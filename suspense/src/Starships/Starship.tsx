@@ -6,7 +6,7 @@ import Person from "../People/Person";
 import { getId } from "../utils";
 import Spinner from "../ui/Spinner";
 
-import { fetchStarship } from "../data/resources";
+import { readStarship } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const StarshipDetail = ({ id }: Props) => {
-    const starship: Starship = fetchStarship(id);
+    const starship: Starship = readStarship(id);
 
     return (
         <Fragment>
@@ -68,7 +68,7 @@ const StarshipDetail = ({ id }: Props) => {
 
 export default (props: Props) => (
     <Detail restricted={props.restricted}>
-        <Suspense delayMs="300" placeholder={<Spinner />}>
+        <Suspense fallback={<Spinner />}>
             <StarshipDetail {...props} />
         </Suspense>
     </Detail>

@@ -18,4 +18,6 @@ css.global("body", {
 
 import App from "./src/App";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+const root = document.getElementById("root");
+ReactDOM.render(<App />, root);
+// (ReactDOM as any).unstable_createRoot(root).render(<App />);

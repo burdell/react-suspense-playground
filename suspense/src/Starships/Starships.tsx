@@ -6,11 +6,11 @@ import { Link } from "@reach/router";
 import { getId } from "../utils";
 import Spinner from "../ui/Spinner";
 
-import { fetchStarships } from "../data/resources";
+import { readStarships } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
 
 const Starships = () => {
-    const ships: StarshipType[] = fetchStarships();
+    const ships: StarshipType[] = readStarships();
 
     return (
         <Fragment>
@@ -29,7 +29,7 @@ const Starships = () => {
 
 export default () => (
     <Card title="Starships">
-        <Suspense delayMs="300" fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />}>
             <Starships />
         </Suspense>
     </Card>

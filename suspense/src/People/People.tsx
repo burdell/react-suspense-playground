@@ -5,11 +5,11 @@ import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { getId } from "../utils";
 import Spinner from "../ui/Spinner";
 
-import { fetchPeople } from "../data/resources";
+import { readPeople } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
 
 const People = () => {
-    const people = fetchPeople();
+    const people = readPeople();
 
     return (
         <Fragment>
@@ -28,7 +28,7 @@ const People = () => {
 
 export default () => (
     <Card title="People">
-        <Suspense delayMs={30000} fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />} delayMs={300}>
             <People />
         </Suspense>
     </Card>

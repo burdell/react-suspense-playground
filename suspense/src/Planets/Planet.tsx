@@ -7,7 +7,7 @@ import Person from "../People/Person";
 import { getId } from "../utils";
 
 const Suspense = (React as any).unstable_Suspense;
-import { fetchPlanet } from "../data/resources";
+import { readPlanet } from "../data/resources";
 
 interface Props {
     id: string;
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const PlanetDetail = ({ restricted, id }: Props) => {
-    const planet: Planet = fetchPlanet(id);
+    const planet: Planet = readPlanet(id);
 
     return (
         <Fragment>
@@ -51,7 +51,7 @@ const PlanetDetail = ({ restricted, id }: Props) => {
 
 export default (props: Props) => (
     <Detail restricted={props.restricted}>
-        <Suspense delayMs="300" placeholder={<Spinner />}>
+        <Suspense fallback={<Spinner />}>
             <PlanetDetail {...props} />
         </Suspense>
     </Detail>

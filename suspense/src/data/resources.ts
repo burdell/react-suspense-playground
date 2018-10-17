@@ -14,27 +14,28 @@ const { createResource } = simpleCacheProvider;
 
 /** PEOPLE */
 const PeopleResource = createResource(async () => await getPeople());
-export const fetchPeople = () => PeopleResource.read(cache);
+export const readPeople = () => PeopleResource.read(cache);
 
 const PersonResource = createResource(
     async (id: string) => await getPerson(id)
 );
-export const fetchPerson = (id: string) => PersonResource.read(cache, id);
+export const readPerson = (id: string) => PersonResource.read(cache, id);
+export const preloadPerson = (id: string) => PeopleResource.preload(cache, id);
 
 /** PLANETS */
 const PlanetsResource = createResource(async () => await getPlanets());
-export const fetchPlanets = () => PlanetsResource.read(cache);
+export const readPlanets = () => PlanetsResource.read(cache);
 
 const PlanetResource = createResource(
     async (id: string) => await getPlanet(id)
 );
-export const fetchPlanet = (id: string) => PlanetResource.read(cache, id);
+export const readPlanet = (id: string) => PlanetResource.read(cache, id);
 
 /** STARSHIPS */
 const StarshipsResource = createResource(async () => await getStarShips());
-export const fetchStarships = () => StarshipsResource.read(cache);
+export const readStarships = () => StarshipsResource.read(cache);
 
 const StarshipResource = createResource(
     async (id: string) => await getStarShip(id)
 );
-export const fetchStarship = (id: string) => StarshipResource.read(cache, id);
+export const readStarship = (id: string) => StarshipResource.read(cache, id);

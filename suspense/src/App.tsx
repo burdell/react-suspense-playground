@@ -7,6 +7,8 @@ import { PersonRoute } from "./People/routes";
 import { PlanetRoute } from "./Planets/routes";
 import { StarshipRoute } from "./Starships/routes";
 
+const Suspense = (React as any).unstable_Suspense;
+
 const Title = styled("h1")({
     fontFamily: "Londrina Shadow",
     color: "#655643",

@@ -7,10 +7,10 @@ import { getId } from "../utils";
 import Spinner from "../ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
-import { fetchPlanets } from "../data/resources";
+import { readPlanets } from "../data/resources";
 
 const Planets = () => {
-    const planets: PlanetType[] = fetchPlanets();
+    const planets: PlanetType[] = readPlanets();
 
     return (
         <Fragment>
@@ -29,7 +29,7 @@ const Planets = () => {
 
 export default () => (
     <Card title="Planets">
-        <Suspense delayMs={300} fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />}>
             <Planets />
         </Suspense>
     </Card>

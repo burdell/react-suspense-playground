@@ -5,6 +5,9 @@ import { RouteComponentProps } from "@reach/router";
 import Ships from "./Starships/Starships";
 import Planets from "./Planets/Planets";
 import People from "./People/People";
+import Spinner from "./ui/Spinner";
+
+const Suspense = (React as any).unstable_Suspense;
 
 const Main = styled("div")({
     display: "flex",
