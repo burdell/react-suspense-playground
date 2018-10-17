@@ -1,21 +1,16 @@
 import React from "react";
-import * as simpleCacheProvider from "simple-cache-provider";
 
-import { getStarShips } from "../api";
 import { Starship as StarshipType } from "../types";
 import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { Link } from "@reach/router";
 import { getId } from "../utils";
-import { cache } from "../cache";
 import Spinner from "../ui/Spinner";
 
+import { fetchStarships } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
 
-const { createResource } = simpleCacheProvider;
-const StarshipResource = createResource(async () => await getStarShips());
-
 const Starships = () => {
-    const ships: StarshipType[] = StarshipResource.read(cache);
+    const ships: StarshipType[] = fetchStarships();
 
     return (
         <Card title="Star Ships">

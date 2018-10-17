@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Planet, Person, Starship, Species, Vehicle, Film } from "./types";
+import { Planet, Person, Starship, Species, Vehicle, Film } from "../types";
 
 const api = axios.create({
     baseURL: "https://swapi.co/api"

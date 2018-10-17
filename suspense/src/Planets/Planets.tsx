@@ -1,21 +1,16 @@
 import React from "react";
-import * as simpleCacheProvider from "simple-cache-provider";
 
-import { getPlanets } from "../api";
 import { Planet as PlanetType } from "../types";
 import Card, { LinkStyles, CardItem } from "../ui/Card";
 import { Link } from "@reach/router";
 import { getId } from "../utils";
-import { cache } from "../cache";
 import Spinner from "../ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
-
-const { createResource } = simpleCacheProvider;
-const PlanetResource = createResource(async () => await getPlanets());
+import { fetchPlanets } from "../data/resources";
 
 const Planets = () => {
-    const planets: PlanetType[] = PlanetResource.read(cache);
+    const planets: PlanetType[] = fetchPlanets();
 
     return (
         <Card title="Planets">
@@ -33,7 +28,7 @@ const Planets = () => {
 };
 
 export default () => (
-    <Suspense delayMs={30000} fallback={<Spinner />}>
+    <Suspense delayMs={300} fallback={<Spinner />}>
         <Planets />
     </Suspense>
 );

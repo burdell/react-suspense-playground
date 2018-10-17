@@ -1,20 +1,13 @@
 import React from "react";
-import * as simpleCacheProvider from "simple-cache-provider";
 
-import { getPlanet } from "../api";
 import { Planet } from "../types";
 import { Label, Value, Item, Detail, Header } from "../ui/Detail";
 import Spinner from "../ui/Spinner";
 import Person from "../People/Person";
 import { getId } from "../utils";
-import { cache } from "../cache";
 
 const Suspense = (React as any).unstable_Suspense;
-
-const { createResource } = simpleCacheProvider;
-const PlanetResource = createResource(
-    async (id: string) => await getPlanet(id)
-);
+import { fetchPlanet } from "../data/resources";
 
 interface Props {
     id: string;
@@ -22,7 +15,7 @@ interface Props {
 }
 
 const PlanetDetail = ({ restricted, id }: Props) => {
-    const planet: Planet = PlanetResource.read(cache, id);
+    const planet: Planet = fetchPlanet(id);
 
     return (
         <Detail restricted={restricted}>

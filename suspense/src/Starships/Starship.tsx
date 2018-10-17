@@ -1,28 +1,21 @@
 import React from "react";
-import * as simpleCacheProvider from "simple-cache-provider";
 
-import { getStarShip } from "../api";
 import { Starship } from "../types";
 import { Label, Value, Item, Detail, Header } from "../ui/Detail";
 import Person from "../People/Person";
 import { getId } from "../utils";
 import Spinner from "../ui/Spinner";
-import { cache } from "../cache";
+
+import { fetchStarship } from "../data/resources";
+const Suspense = (React as any).unstable_Suspense;
 
 interface Props {
     id: string;
     restricted?: boolean;
 }
 
-const Suspense = (React as any).unstable_Suspense;
-
-const { createResource } = simpleCacheProvider;
-const StarshipResource = createResource(
-    async (id: string) => await getStarShip(id)
-);
-
 const StarshipDetail = ({ id, restricted }: Props) => {
-    const starship: Starship = StarshipResource.read(cache, id);
+    const starship: Starship = fetchStarship(id);
 
     return (
         <Detail restricted={restricted}>
