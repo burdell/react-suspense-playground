@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from "react";
-import { RouteComponentProps } from "@reach/router";
 
 import { getStarShip } from "../data/api";
 import { Starship } from "../types";
 import { Label, Value, Item, Detail, Header } from "../ui/Detail";
-import { PersonDetail } from "../People/Person";
+import Person from "../People/Person";
 import { getId } from "../utils";
 import Spinner from "../ui/Spinner";
 
@@ -18,7 +17,7 @@ interface Props {
     restricted?: boolean;
 }
 
-export class StarshipDetail extends Component<Props, State> {
+export default class extends Component<Props, State> {
     public readonly state: State = {
         starship: null,
         loading: false
@@ -75,7 +74,7 @@ export class StarshipDetail extends Component<Props, State> {
                                 <Label>Pilots</Label>
                                 <Value>
                                     {starship.pilots.map(pilot => (
-                                        <PersonDetail
+                                        <Person
                                             restricted={true}
                                             key={pilot}
                                             id={getId({ url: pilot })}
@@ -90,6 +89,3 @@ export class StarshipDetail extends Component<Props, State> {
         );
     }
 }
-
-export default ({ id }: RouteComponentProps<{ id: string }>) =>
-    id ? <StarshipDetail id={id} /> : null;

@@ -1,11 +1,10 @@
 import React, { Component, Fragment } from "react";
-import { RouteComponentProps } from "@reach/router";
 
 import { getPerson } from "../data/api";
 import { Person } from "../types";
 import { Label, Value, Item, Detail, Header } from "../ui/Detail";
 import Spinner from "../ui/Spinner";
-import { PlanetDetail } from "../Planets/Planet";
+import Planet from "../Planets/Planet";
 import { getId } from "../utils";
 
 interface State {
@@ -18,7 +17,7 @@ interface Props {
     restricted?: boolean;
 }
 
-export class PersonDetail extends Component<Props, State> {
+export default class extends Component<Props, State> {
     public readonly state: State = {
         person: null,
         loading: false
@@ -54,9 +53,7 @@ export class PersonDetail extends Component<Props, State> {
                         {!restricted && (
                             <Item>
                                 <Label>Homeworld</Label>
-                                <PlanetDetail
-                                    id={getId({ url: person.homeworld })}
-                                />
+                                <Planet id={getId({ url: person.homeworld })} />
                             </Item>
                         )}
                     </Fragment>
@@ -65,6 +62,3 @@ export class PersonDetail extends Component<Props, State> {
         );
     }
 }
-
-export default ({ id }: RouteComponentProps<{ id: string }>) =>
-    id ? <PersonDetail id={id} /> : null;
