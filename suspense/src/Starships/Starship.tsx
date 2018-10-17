@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Starship } from "../types";
 import { Label, Value, Item, Detail, Header } from "../ui/Detail";
@@ -18,7 +18,7 @@ const StarshipDetail = ({ id, restricted }: Props) => {
     const starship: Starship = fetchStarship(id);
 
     return (
-        <Detail restricted={restricted}>
+        <Fragment>
             <Header>{starship.name}</Header>
             <Item>
                 <Label>Cargo Capacity</Label>
@@ -62,12 +62,14 @@ const StarshipDetail = ({ id, restricted }: Props) => {
                     </Value>
                 </Item>
             )}
-        </Detail>
+        </Fragment>
     );
 };
 
 export default (props: Props) => (
-    <Suspense delayMs="300" placeholder={<Spinner />}>
-        <StarshipDetail {...props} />
-    </Suspense>
+    <Detail restricted={props.restricted}>
+        <Suspense delayMs="300" placeholder={<Spinner />}>
+            <StarshipDetail {...props} />
+        </Suspense>
+    </Detail>
 );

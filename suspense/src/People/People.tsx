@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Link } from "@reach/router";
 
 import Card, { LinkStyles, CardItem } from "../ui/Card";
@@ -12,7 +12,7 @@ const People = () => {
     const people = fetchPeople();
 
     return (
-        <Card title="People">
+        <Fragment>
             {people.map((person: any) => (
                 <Link
                     style={LinkStyles}
@@ -22,12 +22,14 @@ const People = () => {
                     <CardItem>{person.name}</CardItem>
                 </Link>
             ))}
-        </Card>
+        </Fragment>
     );
 };
 
 export default () => (
-    <Suspense delayMs={30000} fallback={<Spinner />}>
-        <People />
-    </Suspense>
+    <Card title="People">
+        <Suspense delayMs={30000} fallback={<Spinner />}>
+            <People />
+        </Suspense>
+    </Card>
 );

@@ -1,5 +1,5 @@
 import React from "react";
-import { Router } from "@reach/router";
+import { Router, Link } from "@reach/router";
 import styled from "react-emotion";
 
 import Home from "./Home";
@@ -16,7 +16,9 @@ const Title = styled("h1")({
 
 export default () => (
     <div>
-        <Title>Star Warz</Title>
+        <Link to="/">
+            <Title>Star Warz</Title>
+        </Link>
         <Router>
             <Home path="/" />
             <PersonRoute path="/person/:id" />

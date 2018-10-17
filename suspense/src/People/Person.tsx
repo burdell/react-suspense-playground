@@ -18,34 +18,34 @@ const PersonDetail = ({ restricted, id }: Props) => {
     const person: Person = fetchPerson(id);
 
     return (
-        <Detail restricted={restricted}>
-            <Fragment>
-                <Header>{person.name}</Header>
+        <Fragment>
+            <Header>{person.name}</Header>
+            <Item>
+                <Label>Birth Year</Label>
+                <Value>{person.birth_year}</Value>
+            </Item>
+            <Item>
+                <Label>Dat Mass</Label>
+                <Value>{person.mass}</Value>
+            </Item>
+            <Item>
+                <Label>Gender</Label>
+                <Value>{person.gender}</Value>
+            </Item>
+            {!restricted && (
                 <Item>
-                    <Label>Birth Year</Label>
-                    <Value>{person.birth_year}</Value>
+                    <Label>Homeworld</Label>
+                    <Planet id={getId({ url: person.homeworld })} />
                 </Item>
-                <Item>
-                    <Label>Dat Mass</Label>
-                    <Value>{person.mass}</Value>
-                </Item>
-                <Item>
-                    <Label>Gender</Label>
-                    <Value>{person.gender}</Value>
-                </Item>
-                {!restricted && (
-                    <Item>
-                        <Label>Homeworld</Label>
-                        <Planet id={getId({ url: person.homeworld })} />
-                    </Item>
-                )}
-            </Fragment>
-        </Detail>
+            )}
+        </Fragment>
     );
 };
 
 export default (props: Props) => (
-    <Suspense delayMs="300" placeholder={<Spinner />}>
-        <PersonDetail {...props} />
-    </Suspense>
+    <Detail restricted={props.restricted}>
+        <Suspense delayMs="300" placeholder={<Spinner />}>
+            <PersonDetail {...props} />
+        </Suspense>
+    </Detail>
 );

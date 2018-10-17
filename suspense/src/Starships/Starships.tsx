@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Starship as StarshipType } from "../types";
 import Card, { LinkStyles, CardItem } from "../ui/Card";
@@ -13,7 +13,7 @@ const Starships = () => {
     const ships: StarshipType[] = fetchStarships();
 
     return (
-        <Card title="Star Ships">
+        <Fragment>
             {ships.map(ship => (
                 <Link
                     style={LinkStyles}
@@ -23,12 +23,14 @@ const Starships = () => {
                     <CardItem>{ship.name}</CardItem>
                 </Link>
             ))}
-        </Card>
+        </Fragment>
     );
 };
 
 export default () => (
-    <Suspense delayMs="300" fallback={<Spinner />}>
-        <Starships />
-    </Suspense>
+    <Card title="Starships">
+        <Suspense delayMs="300" fallback={<Spinner />}>
+            <Starships />
+        </Suspense>
+    </Card>
 );

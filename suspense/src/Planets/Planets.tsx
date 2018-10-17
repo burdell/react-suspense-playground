@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Planet as PlanetType } from "../types";
 import Card, { LinkStyles, CardItem } from "../ui/Card";
@@ -13,7 +13,7 @@ const Planets = () => {
     const planets: PlanetType[] = fetchPlanets();
 
     return (
-        <Card title="Planets">
+        <Fragment>
             {planets.map(planet => (
                 <Link
                     style={LinkStyles}
@@ -23,12 +23,14 @@ const Planets = () => {
                     <CardItem>{planet.name}</CardItem>
                 </Link>
             ))}
-        </Card>
+        </Fragment>
     );
 };
 
 export default () => (
-    <Suspense delayMs={300} fallback={<Spinner />}>
-        <Planets />
-    </Suspense>
+    <Card title="Planets">
+        <Suspense delayMs={300} fallback={<Spinner />}>
+            <Planets />
+        </Suspense>
+    </Card>
 );

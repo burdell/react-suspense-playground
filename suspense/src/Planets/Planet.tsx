@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import { Planet } from "../types";
 import { Label, Value, Item, Detail, Header } from "../ui/Detail";
@@ -18,7 +18,7 @@ const PlanetDetail = ({ restricted, id }: Props) => {
     const planet: Planet = fetchPlanet(id);
 
     return (
-        <Detail restricted={restricted}>
+        <Fragment>
             <Header>{planet.name}</Header>
             <Item>
                 <Label>Climate</Label>
@@ -45,12 +45,14 @@ const PlanetDetail = ({ restricted, id }: Props) => {
                         ))}
                     </Item>
                 )}
-        </Detail>
+        </Fragment>
     );
 };
 
 export default (props: Props) => (
-    <Suspense delayMs="300" placeholder={<Spinner />}>
-        <PlanetDetail {...props} />
-    </Suspense>
+    <Detail restricted={props.restricted}>
+        <Suspense delayMs="300" placeholder={<Spinner />}>
+            <PlanetDetail {...props} />
+        </Suspense>
+    </Detail>
 );
