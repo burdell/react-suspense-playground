@@ -8,6 +8,7 @@ import Spinner from "../ui/Spinner";
 
 import { readStarships } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
+import { delayMs } from "../config";
 
 const Starships = () => {
     const ships: StarshipType[] = readStarships();
@@ -29,7 +30,7 @@ const Starships = () => {
 
 export default () => (
     <Card title="Starships">
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />} maxDuration={delayMs}>
             <Starships />
         </Suspense>
     </Card>

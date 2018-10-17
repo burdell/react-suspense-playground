@@ -8,6 +8,7 @@ import { getId } from "../utils";
 
 const Suspense = (React as any).unstable_Suspense;
 import { readPlanet } from "../data/resources";
+import { delayMs } from "../config";
 
 interface Props {
     id: string;
@@ -51,7 +52,7 @@ const PlanetDetail = ({ restricted, id }: Props) => {
 
 export default (props: Props) => (
     <Detail restricted={props.restricted}>
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />} maxDuration={delayMs}>
             <PlanetDetail {...props} />
         </Suspense>
     </Detail>

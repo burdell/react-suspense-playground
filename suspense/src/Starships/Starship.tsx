@@ -8,6 +8,7 @@ import Spinner from "../ui/Spinner";
 
 import { readStarship } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
+import { delayMs } from "../config";
 
 interface Props {
     id: string;
@@ -68,7 +69,7 @@ const StarshipDetail = ({ id }: Props) => {
 
 export default (props: Props) => (
     <Detail restricted={props.restricted}>
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />} maxDuration={delayMs}>
             <StarshipDetail {...props} />
         </Suspense>
     </Detail>

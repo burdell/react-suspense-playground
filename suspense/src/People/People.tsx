@@ -7,6 +7,7 @@ import Spinner from "../ui/Spinner";
 
 import { readPeople } from "../data/resources";
 const Suspense = (React as any).unstable_Suspense;
+import { delayMs } from "../config";
 
 const People = () => {
     const people = readPeople();
@@ -28,7 +29,7 @@ const People = () => {
 
 export default () => (
     <Card title="People">
-        <Suspense fallback={<Spinner />} delayMs={300}>
+        <Suspense fallback={<Spinner />} maxDuration={delayMs}>
             <People />
         </Suspense>
     </Card>

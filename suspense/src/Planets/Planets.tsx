@@ -8,6 +8,7 @@ import Spinner from "../ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
 import { readPlanets } from "../data/resources";
+import { delayMs } from "../config";
 
 const Planets = () => {
     const planets: PlanetType[] = readPlanets();
@@ -29,7 +30,7 @@ const Planets = () => {
 
 export default () => (
     <Card title="Planets">
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<Spinner />} maxDuration={delayMs}>
             <Planets />
         </Suspense>
     </Card>

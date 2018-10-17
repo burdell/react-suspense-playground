@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 const limit = 50;
-const DEFAULT_THROTTLE = 2000;
+const DEFAULT_THROTTLE = 0;
 const sleep = (data: any, throttle = DEFAULT_THROTTLE) =>
     new Promise(resolve => {
         setTimeout(() => resolve(data), throttle);

@@ -6,6 +6,7 @@ import Home from "./Home";
 import { PersonRoute } from "./People/routes";
 import { PlanetRoute } from "./Planets/routes";
 import { StarshipRoute } from "./Starships/routes";
+import Spinner from "./ui/Spinner";
 
 const Suspense = (React as any).unstable_Suspense;
 
