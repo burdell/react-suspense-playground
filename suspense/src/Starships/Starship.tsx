@@ -14,7 +14,7 @@ interface Props {
     restricted?: boolean;
 }
 
-const StarshipDetail = ({ id, restricted }: Props) => {
+const StarshipDetail = ({ id }: Props) => {
     const starship: Starship = fetchStarship(id);
 
     return (
